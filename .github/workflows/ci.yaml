@@ -36,3 +36,5 @@ jobs:
           commit-message: "pre-commit bot reformat code"
           body: "Automated changes by [pre-commit](https://github.com/av1m/cars/actions) GitHub action"
           branch: fix-pre-commit
+      - name: Run tests
+        run: make test

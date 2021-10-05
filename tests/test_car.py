@@ -33,21 +33,27 @@ class TestCar(unittest.TestCase):
         self.assertRaises(AssertionError, lambda: Car(wheels=Wheel()))  # type: ignore
 
     def test_getters(self):
-        car = Car(current_speed=100, horse_power=150)
-        self.assertEqual(car.horse_power, 100)
-        self.assertEqual(car.current_speed, 150)
+        car = Car(max_speed=100, horse_power=150)
+        self.assertEqual(car.horse_power, 150)
+        self.assertEqual(car.max_speed, 100)
 
     def test_setters(self):
-        car = Car(current_speed=100, horse_power=150)
+        car = Car(max_speed=100, horse_power=150)
         car.horse_power = 200
         self.assertEqual(car.horse_power, 200)
-        self.assertEqual(car.current_speed, 100)
-        car.current_speed = 120
-        self.assertEqual(car.current_speed, 120)
-        car.horse_power = -2
-        car.current_speed = -2
-        self.assertEqual(car.horse_power,200)
-        self.assertEqual(car.current_speed, 120)
+        self.assertEqual(car.max_speed, 100)
+        car.max_speed = 120
+        self.assertEqual(car.max_speed, 120)
+        self.assertEqual(car.horse_power, 200)
+        with self.assertRaises(AssertionError):
+            car.max_speed = -1
+            car.horse_power = -10
+            car.max_speed = None
+            car.horse_power = None
+        self.assertEqual(car.max_speed, 120)
+        self.assertEqual(car.horse_power, 200)
+        self.assertEqual(car.motor.type_motor, TypeMotor.RACING)
+        self.assertEqual(car.wheels, ())
 
 
 if __name__ == "__main__":

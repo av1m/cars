@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import copy
 import logging
+from typing import Optional
 
 from cars.motor import Motor
 from cars.wheel import Wheel
@@ -24,7 +25,10 @@ class Car:
     """
 
     def __init__(
-        self, max_speed: int = 0, horse_power: int = 0, wheels: list[Wheel] = []
+        self,
+        max_speed: int = 0,
+        horse_power: int = 0,
+        wheels: Optional[list[Wheel]] = None,
     ) -> None:
         """Constructor method
 
@@ -35,6 +39,10 @@ class Car:
         :param wheels: list of wheels associated to the car
         :type wheels: list[Wheel]
         """
+        if wheels is None:
+            wheels = []
+        else:
+            assert isinstance(wheels, list), "wheels need to be a list of Wheel"
         self.max_speed: int = max_speed
         self.horse_power: int = horse_power
         # A car have only one motor
