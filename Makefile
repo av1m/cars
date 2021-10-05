@@ -22,9 +22,14 @@ format: ## Format all code source
 
 .PHONY: test
 test: ## Test all the project
+	# Format
 	$(BIN)/black --check .
-	$(BIN)/behave features/
+	# Type check
+	$(BIN)/mypy -p cars -p tests -p features
+	# Unit test
 	$(PYTHON) -m unittest discover -s tests -p "*.py"
+	# Functional test
+	$(BIN)/behave features/
 
 .PHONY: install
 install: venv requirements ## This command must be launched for the first use of the project
