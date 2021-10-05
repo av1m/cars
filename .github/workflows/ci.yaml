@@ -37,4 +37,8 @@ jobs:
           body: "Automated changes by [pre-commit](https://github.com/av1m/cars/actions) GitHub action"
           branch: fix-pre-commit
       - name: Run tests
-        run: make test
+        run: |
+          black --check .
+          mypy -p cars -p tests -p features
+          python -m unittest discover -s tests -p "*.py"
+          behave features/
