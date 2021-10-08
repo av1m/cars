@@ -19,7 +19,7 @@ class Wheel:
     def __init__(self, size: int = 1, has_rim: bool = False) -> None:
         """Constructor method for Wheel
 
-        :param size: size of the wheel
+        :param size: size of the wheel and need to be >= 1
         :type size: int
         :param has_rim: if the wheel has a rim
         :type has_rim: bool

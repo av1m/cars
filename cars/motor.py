@@ -30,7 +30,7 @@ class TypeMotor(Enum):
 
         Exemple::
 
-            >>> TypeMotor.list()
+            >>> TypeMotor.dict()
             >>> {"EMPTY": 0, "CITY": 1, "SPORT": 100, "RACING": 200, "F1": 300}
 
         :return: A dictionary or keys are the names of Enums and Values are the associated values
@@ -44,10 +44,7 @@ class Motor:
 
     A motor is associated with a car and have a type of motor
     The type of motor can't be changed after the creation of the motor
-    This class is immutable
     """
-
-    __slots__ = ["_type"]
 
     def __init__(self, horse_power: int) -> None:
         """Constructor method
@@ -57,7 +54,8 @@ class Motor:
         """
         assert isinstance(horse_power, int), "horse_power must be an integer"
         assert horse_power >= 0, "The horse power must be positive"
-        super(Motor, self).__setattr__("_type", Motor.compute_type(horse_power))
+        # Allow to make the type immutable
+        self.__type = Motor.compute_type(horse_power)
         return
 
     def __str__(self) -> str:
@@ -81,7 +79,7 @@ class Motor:
         :return: The type of motor associated with a horse power
         :rtype: TypeMotor
         """
-        return self.__getattribute__("_type")
+        return self.__type
 
     @staticmethod
     def compute_type(horse_power: int) -> TypeMotor:
