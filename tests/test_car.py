@@ -95,6 +95,14 @@ class TestCar(unittest.TestCase):
             ),
         )
 
+    def test_improve(self) -> None:
+        car: Car = Car(max_speed=40, horse_power=400)
+        car.improve(new_max_speed=1000, new_horse_power=500)
+        self.assertEqual(car.horse_power, 500)
+        self.assertEqual(car.max_speed, 1000)
+        self.assertRaises(AssertionError, lambda: car.improve(-1, 500))
+        self.assertRaises(AssertionError, lambda: car.improve(500, -1))
+
     def test_motor(self) -> None:
         car = Car(horse_power=150)
         self.assertEqual(car.horse_power, 150)
