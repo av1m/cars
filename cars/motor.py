@@ -14,7 +14,8 @@ logger = logging.getLogger(__name__)
 class TypeMotor(Enum):
     """Enumeration of the type of motor
 
-    The values associated with the enumeration elements correspond to the minimum value of the associated interval the power in horses of a vehicle
+    The values associated with the enumeration elements correspond
+    to the minimum value of the associated interval the power in horses of a vehicle
     In other words, it's the minimal threshold of power in the horse of the car
     """
 
@@ -25,7 +26,7 @@ class TypeMotor(Enum):
     F1 = 300
 
     @staticmethod
-    def dict() -> dict[str, int]:
+    def get_all() -> dict[str, int]:
         """Get all enum keys and values
 
         Exemple::
@@ -43,7 +44,7 @@ class Motor:
     """Representation of an motor
 
     A motor is associated with a car and have a type of motor
-    The type of motor can't be changed after the creation of the motor
+    The type of motor should not be changed after the creation of the motor
     """
 
     def __init__(self, horse_power: int) -> None:
@@ -55,11 +56,11 @@ class Motor:
         assert isinstance(horse_power, int), "horse_power must be an integer"
         assert horse_power >= 0, "The horse power must be positive"
         # Allow to make the type immutable
-        self.__type = Motor.compute_type(horse_power)
+        self.type = Motor.compute_type(horse_power)
         return
 
     def __str__(self) -> str:
-        return self.__repr__()
+        return f"Motor {self.type_motor.name}"
 
     def __repr__(self) -> str:
         return f"Motor(type={self.type_motor})"
@@ -67,7 +68,7 @@ class Motor:
     def __eq__(self, o: object) -> bool:
         if not isinstance(o, Motor):
             logger.warning(
-                f"{type(o).__name__} isn't type 'Motor'. So, will use default __eq__"
+                "%s isn't type 'Motor'. So, will use default __eq__", type(o).__name__
             )
             return super().__eq__(o)
         return self.type_motor == o.type_motor
@@ -79,7 +80,7 @@ class Motor:
         :return: The type of motor associated with a horse power
         :rtype: TypeMotor
         """
-        return self.__type
+        return self.type
 
     @staticmethod
     def compute_type(horse_power: int) -> TypeMotor:
@@ -95,7 +96,7 @@ class Motor:
         """
         assert horse_power >= 0, "The horse power of the car must be greater than 0"
         # Get all TypeMotor values (e.g. [0, 1, 100, 200, 300]) with reverse sorted (descending)
-        type_motor_list: list[int] = sorted(TypeMotor.dict().values(), reverse=True)
+        type_motor_list: list[int] = sorted(TypeMotor.get_all().values(), reverse=True)
         # Get the smallest closest value
         type_motor: int = min(type_motor_list, key=lambda v: v - horse_power > 0)
         return TypeMotor(type_motor)

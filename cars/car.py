@@ -53,7 +53,7 @@ class Car:
     def __eq__(self, o: object) -> bool:
         if not isinstance(o, Car):
             logger.warning(
-                f"{type(o).__name__} isn't type 'Car'. So, will use default __eq__"
+                "%s isn't type 'Car'. So, will use default __eq__", type(o).__name__
             )
             return super().__eq__(o)
         return (
@@ -63,10 +63,16 @@ class Car:
         )
 
     def __str__(self) -> str:
-        return self.__repr__()
+        return (
+            f"This car at a maximum speed of {self.max_speed} "
+            f"using its {self.motor} and its {self.horse_power} horses"
+        )
 
     def __repr__(self) -> str:
-        return f"Car(max_speed={self.max_speed}, horse_power={self.horse_power}, motor={self.motor})"
+        return (
+            f"Car(max_speed={self.max_speed}, "
+            f"horse_power={self.horse_power}, motor={self.motor})"
+        )
 
     @property
     def wheels(self) -> tuple[Wheel, ...]:
@@ -76,18 +82,6 @@ class Car:
         :rtype: tuple[Wheel]
         """
         return tuple(self._wheels)
-
-    def add_wheel(self, wheel: Wheel) -> tuple[Wheel, ...]:
-        """Add a new wheel to the car
-
-        :param wheel: the new wheel to add to the car
-        :type wheel: Wheel
-        :return: the list of wheels associated with the current car and the new wheel
-        :rtype: tuple[Wheel, ...]
-        """
-        assert isinstance(wheel, Wheel), "attribute wheel must have type 'Wheel'"
-        self._wheels.append(wheel)
-        return self.wheels
 
     @property
     def max_speed(self) -> int:
@@ -130,7 +124,9 @@ class Car:
         assert new_horse_power >= 0, "The horse power have to be higher than 0"
         self._horse_power = new_horse_power
         self._motor = Motor(new_horse_power)
-        logging.debug(f"From {new_horse_power} horse powers, the motor is {self.motor}")
+        logging.debug(
+            "From %d horse powers, the motor is %s", new_horse_power, self.motor
+        )
         return
 
     @property
@@ -142,6 +138,18 @@ class Car:
         """
         return self._motor
 
+    def add_wheel(self, wheel: Wheel) -> tuple[Wheel, ...]:
+        """Add a new wheel to the car
+
+        :param wheel: the new wheel to add to the car
+        :type wheel: Wheel
+        :return: the list of wheels associated with the current car and the new wheel
+        :rtype: tuple[Wheel, ...]
+        """
+        assert isinstance(wheel, Wheel), "attribute wheel must have type 'Wheel'"
+        self._wheels.append(wheel)
+        return self.wheels
+
     def improve(self, new_max_speed: int, new_horse_power: int) -> Car:
         """Improve the parameters of the cars
 
@@ -150,7 +158,7 @@ class Car:
 
         :param new_max_speed: The new maximum speed of the car
         :type new_max_speed: int
-        :param new_horse_power: The new horse power of the car and that allows to assign the engine of the car
+        :param new_horse_power: New horse power of the car and assign a new engine to the car
         :type new_horse_power: int
         :return: the current instance modified of Car
         :rtype: Car

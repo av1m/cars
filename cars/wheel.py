@@ -29,7 +29,7 @@ class Wheel:
         return
 
     def __str__(self) -> str:
-        return self.__repr__()
+        return f"Wheel of {self.size} with{'' if self.has_rim else 'out'} rim"
 
     def __repr__(self) -> str:
         return f"Wheel(size={self.size}, has_rim={self.has_rim})"
@@ -37,7 +37,7 @@ class Wheel:
     def __eq__(self, o: object) -> bool:
         if not isinstance(o, Wheel):
             logger.warning(
-                f"{type(o).__name__} isn't type 'Wheel'. So, will use default __eq__"
+                "%s isn't type 'Wheel'. So, will use default __eq__", type(o).__name__
             )
             return super().__eq__(o)
         return self.size == o.size and self.has_rim == o.has_rim
@@ -73,7 +73,7 @@ class Wheel:
         return self._has_rim
 
     @has_rim.setter
-    def has_rim(self, new_has_rim: int) -> None:
+    def has_rim(self, new_has_rim: bool) -> None:
         """Setter of has_rim attributes
 
         :param new_has_rim: indicate if the wheel has a rim
