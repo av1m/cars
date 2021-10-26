@@ -1,4 +1,4 @@
-VENV := venv
+VENV := .venv
 BIN := $(VENV)/bin
 PYTHON := $(BIN)/python
 SHELL := /bin/bash
@@ -23,13 +23,13 @@ format: ## Format all code source
 .PHONY: test
 test: ## Test all the project
 	# Format
-	$(BIN)/black --check .
+	$(BIN)/black --verbose --check .
 	# Type check
-	$(BIN)/mypy -p cars -p tests -p features
+	$(BIN)/mypy --verbose --pretty --package cars --package tests
 	# Unit test
-	$(PYTHON) -m unittest discover -s tests -p "*.py"
+	$(PYTHON) -m unittest discover --verbose -s tests -p "*.py"
 	# Functional test
-	$(BIN)/behave features/
+	$(BIN)/behave --verbose features/
 
 .PHONY: install
 install: venv requirements ## This command must be launched for the first use of the project

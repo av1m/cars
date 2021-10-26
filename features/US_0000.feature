@@ -1,33 +1,34 @@
-# Created benyamin at 10/5/21
 Feature: US_0000 Car creation
-  As a user,
-  I want to create my car with parameters of my choice
+  As a driver,
+  I want to construct a new car with specific options of my choice
   So that I can drive it
 
   Scenario Outline: Benjamin creates his new car with success
-    Given None
-    When Benjamin initialise his car with parameters <max_speed>, <horse_power>, and <wheels_list>
+    Given Nothing
+    When Benjamin want to create a car with a max speed <max_speed>
+      And a number of horse power <horse_power>
+      And 10 size <number_of_wheels> wheels
     Then the car is created
 
     Examples:
-      | max_speed | horse_power | wheels_list                       |  |
-      | 100       | 100         | None                              |  |
-      | 0         | 100         | None                              |  |
-      | 100       | 0           | None                              |  |
-      | 100       | 500         | [(10, True),(10,True),(15,False)] |  |
-      | None      | None        | None                              |  |
+      | max_speed | horse_power | number_of_wheels |
+      | 100       | 100         | 2 |
+      | 0         | 100         | 2 |
+      | 100       | 1           | 0 |
+      | 100       | 500         | 3 |
+      | 20        | 30          | 4 |
 
-  Scenario Outline: Because of wrong parameters, Benjamin doesn't success to creates a car
-    Given None
-    When Benjamin initialise his car with parameters <max_speed>, <horse_power>, and <wheels_list>
-    Then an error message is displayed
+  Scenario Outline: Because of wrong options, Benjamin can't construct his car
+    Given Nothing
+    When Benjamin initialise his car with options max speed <max_speed> and horse power <horse_power>
+    Then an error message is displayed indicate that an option is invalid
 
     Examples:
-      | max_speed | horse_power | wheels_list                        |  |
-      | -100      | 100         | None                               |  |
-      | 100       | - 100       | None                               |  |
-      | 100       | 100         | 0                                  |  |
-      | 100       | 500         | [(-10, True),(-10,True),(15,False) |  |
+      | max_speed | horse_power |  |
+      | -100      | 100         |  |
+      | 100       | - 100       |  |
+      | 100       | 100         |  |
+      | 100       | 500         |  |
 
 
 
