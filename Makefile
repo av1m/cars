@@ -18,6 +18,7 @@ requirements:
 
 .PHONY: format
 format: ## Format all code source
+	$(BIN)/isort .
 	$(BIN)/black .
 
 .PHONY: test

@@ -16,7 +16,7 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    context.racing_car = Car(horse_power=250)
+    context.racing_car = Car(horsepower=250)
     assert context.racing_car.motor.type_motor == TypeMotor.RACING
 
 

@@ -1,4 +1,5 @@
 import logging
+
 from behave import *
 
 from cars.car import Car
@@ -27,14 +28,14 @@ def step_impl(context, max_speed):
     assert int(max_speed) == int(max_speed)
 
 
-@step("a number of horse power {horse_power}")
-def step_impl(context, horse_power):
+@step("a number of horsepower {horsepower}")
+def step_impl(context, horsepower):
     """
     :type context: behave.runner.Context
-    :type horse_power: str
+    :type horsepower: str
     """
-    context.car.horse_power = int(horse_power)
-    assert context.car.horse_power == int(horse_power)
+    context.car.horsepower = int(horsepower)
+    assert context.car.horsepower == int(horsepower)
 
 
 @step("10 size {number_of_wheels} wheels")
@@ -57,16 +58,16 @@ def step_impl(context):
 
 
 @when(
-    "Benjamin initialise his car with options max speed {max_speed} and horse power {horse_power}"
+    "Benjamin initialise his car with options max speed {max_speed} and horsepower {horsepower}"
 )
-def step_impl(context, max_speed, horse_power):
+def step_impl(context, max_speed, horsepower):
     """
     :type context: behave.runner.Context
     :type max_speed: str
-    :type horse_power: str
+    :type horsepower: str
     """
     try:
-        Car(max_speed=int(max_speed), horse_power=int(horse_power))
+        Car(max_speed=int(max_speed), horsepower=int(horsepower))
     except (AssertionError, ValueError):
         context.error = True
 

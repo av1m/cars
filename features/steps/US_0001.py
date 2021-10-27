@@ -5,14 +5,14 @@ from cars.car import Car
 use_step_matcher("parse")
 
 
-@given("Benjamin initialise his car with parameters {max_speed}, {horse_power}")
-def step_impl(context, max_speed, horse_power):
+@given("Benjamin initialise his car with parameters {max_speed}, {horsepower}")
+def step_impl(context, max_speed, horsepower):
     """
     :type context: behave.runner.Context
     :type max_speed: str
-    :type horse_power: str
+    :type horsepower: str
     """
-    context.car = Car(max_speed=int(max_speed), horse_power=int(horse_power))
+    context.car = Car(max_speed=int(max_speed), horsepower=int(horsepower))
 
 
 @when("Benjamin asked information about his car")
