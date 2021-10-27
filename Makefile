@@ -22,6 +22,8 @@ format: ## Format all code source
 
 .PHONY: test
 test: ## Test all the project
+	# Check that import are correctly sorted
+	$(BIN)/isort --verbose --check .
 	# Format
 	$(BIN)/black --verbose --check .
 	# Type check
