@@ -75,7 +75,6 @@ class Car:
         )
 
     def __hash__(self):
-        print((self.motor, self.max_speed, self.horsepower, self.color))
         return hash((self.motor, self.max_speed, self.horsepower, self.color))
 
     def __str__(self) -> str:

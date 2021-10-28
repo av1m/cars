@@ -1,6 +1,6 @@
 Feature: US_0005 Color a car
   As a driver
-  I wish I could add a color to my car
+  I want to add a color to my car
   So that my car becomes beautiful in my eyes
 
   Scenario Outline: Benjamin wants to be able to choose the color on his car

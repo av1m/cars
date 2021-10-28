@@ -8,8 +8,8 @@
 
 1. Clone the project
     ```bash
-    git clone https://github.com/av1m/sliding-block-puzzles
-    cd src-puzzles
+    git clone https://github.com/av1m/cars
+    cd cars
     ```
 2. Run make command
     ```bash
