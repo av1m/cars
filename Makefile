@@ -30,7 +30,7 @@ test: ## Test all the project
 	# Type check
 	$(BIN)/mypy --verbose --pretty --package cars --package tests
 	# Unit test
-	$(PYTHON) -m unittest discover --verbose -s tests -p "*.py"
+	$(BIN)/coverage run -m unittest discover --verbose -s tests -p "*.py"
 	# Functional test
 	$(BIN)/behave --verbose features/
 

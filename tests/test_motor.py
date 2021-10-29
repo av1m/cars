@@ -110,7 +110,7 @@ class TestTypeMotor(unittest.TestCase):
         self.assertLess(motor, Motor(50))
         self.assertLess(motor, Motor(150))
         self.assertGreater(Motor(250), motor)
-        self.assertEquals(motor, Motor(0))
+        self.assertEqual(motor, Motor(0))
 
 
 if __name__ == "__main__":
