@@ -32,6 +32,7 @@ class TestCar(unittest.TestCase):
         self.assertEqual(car.motor, Motor(car.horsepower))
         self.assertEqual(car.motor.type_motor, TypeMotor.SPORT)
         self.assertIsInstance(car.wheels, tuple)
+        self.assertEqual(len(car.wheels), 4)
         for wheel in car.wheels:
             self.assertEqual(wheel, Wheel(size=5, has_rim=False))
 

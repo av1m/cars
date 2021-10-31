@@ -4,6 +4,7 @@ Representation of Wheel
 A car has 0 or several wheels
 """
 import logging
+from typing import Optional
 
 logger = logging.getLogger(__name__)
 
@@ -24,9 +25,11 @@ class Wheel:
         :param has_rim: if the wheel has a rim
         :type has_rim: bool
         """
+        from cars.car import Car
+
         self.size: int = size
         self.has_rim: bool = has_rim
-        self.car = None
+        self._car: Optional[Car] = None
         return
 
     def __str__(self) -> str:
@@ -83,3 +86,31 @@ class Wheel:
         assert isinstance(new_has_rim, bool), "The has_rim must be a boolean"
         self._has_rim: bool = new_has_rim
         return
+
+    @property
+    def car(self):
+        """Getter of car attributes
+
+        Pay attention ! It is a bidirectional association
+
+        :return: None if the wheel is not associated to a car, ot the car
+        :rtype: Optional[cars.car.Car]
+        """
+        return self._car
+
+    @car.setter
+    def car(self, new_car) -> None:
+        """Setter of car attributes
+
+        Pay attention ! It is a bidirectional association
+
+        :param new_car: The new car has associated with this wheel
+        :type new_car: cars.car.Car
+        """
+        if self._car is None:
+            from cars.car import Car
+
+            assert isinstance(new_car, Car)
+            self._car = new_car
+            # We access a private member to allow the bidirectional access
+            self._car._wheels.append(self)

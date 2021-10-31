@@ -1,5 +1,6 @@
 from unittest import TestCase
 
+from cars.car import Car
 from cars.wheel import Wheel
 
 
@@ -41,3 +42,34 @@ class TestWheel(TestCase):
         self.assertRaises(AssertionError, lambda: Wheel(has_rim=None))  # type: ignore
         self.assertRaises(AssertionError, lambda: Wheel(has_rim=-1))  # type: ignore
         self.assertRaises(AssertionError, lambda: Wheel(has_rim=0))  # type: ignore
+
+    def test_car(self):
+        # Wheel --> Car
+        wheel1: Wheel = Wheel(size=20, has_rim=True)
+        car1: Car = Car(100, 200)
+        self.assertIsNone(wheel1.car)
+        self.assertEqual(car1.wheels, tuple())
+        wheel1.car = car1
+        self.assertEqual(wheel1.car, car1)
+        self.assertEqual(car1.wheels[0], wheel1)
+        self.assertEqual(len(car1.wheels), 1)
+        # Car --> Wheel
+        wheel2: Wheel = Wheel(size=50, has_rim=True)
+        car2: Car = Car(300, 5500)
+        car2.add_wheel(wheel2)
+        self.assertEqual(wheel2.car, car2)
+        self.assertEqual(car2.wheels[0], wheel2)
+        self.assertEqual(len(car2.wheels), 1)
+
+    def test_same(self):
+        wheel1: Wheel = Wheel(size=50, has_rim=True)
+        car: Car = Car()
+        car2: Car = Car(max_speed=100)
+        car.add_wheel(wheel1)
+        car2.add_wheel(wheel1)
+        self.assertEqual(wheel1.car, car)
+        self.assertEqual(
+            len(car2.wheels),
+            0,
+            msg="wheel1 is already added to car and can't associate to car2",
+        )

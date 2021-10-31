@@ -58,13 +58,10 @@ class Car:
         self.color: str = color
         # A car have only one motor
         self._motor: Motor = Motor(self.horsepower)
-        self._wheels: list[Wheel] = copy.deepcopy(wheels)
-
-        for wheel in self._wheels:
-            if wheel.car is None:
-                wheel.car = self
-            else:
-                logger.error("One of the wheels is already associated to another car")
+        # By default, we don't have wheels
+        self._wheels: list[Wheel] = []
+        for wheel in wheels:
+            self.add_wheel(copy.deepcopy(wheel))
         return
 
     def __eq__(self, o: object) -> bool:
@@ -242,13 +239,17 @@ class Car:
     def add_wheel(self, wheel: Wheel) -> tuple[Wheel, ...]:
         """Add a new wheel to the car
 
+        This function raise an error if the wheel has already been added in another car.
+
         :param wheel: the new wheel to add to the car
         :type wheel: Wheel
         :return: the list of wheels associated with the current car and the new wheel
         :rtype: tuple[Wheel, ...]
         """
         assert isinstance(wheel, Wheel), "attribute wheel must have type 'Wheel'"
-        self._wheels.append(wheel)
+        if wheel.car is None:
+            # It's the responsibility of the wheel property to add bidirectional access
+            wheel.car = self
         return self.wheels
 
     def improve(self, new_max_speed: int, new_horsepower: int) -> Car:
