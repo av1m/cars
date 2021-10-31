@@ -59,6 +59,12 @@ class Car:
         # A car have only one motor
         self._motor: Motor = Motor(self.horsepower)
         self._wheels: list[Wheel] = copy.deepcopy(wheels)
+
+        for wheel in self._wheels:
+            if wheel.car is None:
+                wheel.car = self
+            else:
+                logger.error("One of the wheels is already associated to another car")
         return
 
     def __eq__(self, o: object) -> bool:

@@ -26,6 +26,7 @@ class Wheel:
         """
         self.size: int = size
         self.has_rim: bool = has_rim
+        self.car = None
         return
 
     def __str__(self) -> str:

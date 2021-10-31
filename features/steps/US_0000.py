@@ -18,7 +18,7 @@ def step_impl(context):
     context.car = Car()
 
 
-@when("Benjamin want to create a car with a max speed {max_speed}")
+@when("Benjamin wants to create a car with a max speed {max_speed}")
 def step_impl(context, max_speed):
     """
     :type context: behave.runner.Context

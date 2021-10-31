@@ -5,7 +5,7 @@ Feature: US_0000 Car creation
 
   Scenario Outline: Benjamin creates his new car with success
     Given Nothing
-    When Benjamin want to create a car with a max speed <max_speed>
+    When Benjamin wants to create a car with a max speed <max_speed>
     And a number of horsepower <horsepower>
     And 10 size <number_of_wheels> wheels
     Then the car is created

@@ -1,6 +1,6 @@
 Feature:  US_0003 Car wheel
   As a driver with a racing car,
-  I want to add some wheel with size
+  I want to add some wheels with size
   So that I can have enough to drift
 
   Scenario Outline: Benjamin wants to use his car in racing
