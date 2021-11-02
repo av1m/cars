@@ -54,11 +54,12 @@ class TestCar(unittest.TestCase):
         car.max_speed = 120
         self.assertEqual(car.max_speed, 120)
         self.assertEqual(car.horsepower, 200)
-        with self.assertRaises(AssertionError):
-            car.max_speed = -1
-            car.horsepower = -10
-            car.max_speed = None  # type: ignore
-            car.horsepower = None  # type: ignore
+        self.assertRaises(AssertionError, lambda: setattr(car, "max_speed", -1))
+        self.assertRaises(AssertionError, lambda: setattr(car, "horsepower", -10))
+        self.assertRaises(
+            AssertionError, lambda: setattr(car, "max_speed", None)
+        )  # type: ignore
+        self.assertRaises(AssertionError, lambda: setattr(car, "horsepower", None))  # type: ignore
         self.assertEqual(car.max_speed, 120)
         self.assertEqual(car.horsepower, 200)
         self.assertEqual(car.motor.type_motor, TypeMotor.RACING)
@@ -83,6 +84,14 @@ class TestCar(unittest.TestCase):
         self.assertEqual(car.wheels, tuple([Wheel(size=5, has_rim=False)] * 4))
         self.assertEqual(car.motor, Motor(20))
 
+    def test_str(self) -> None:
+        str_car = "This car at a maximum speed of 0 km/h using its Motor EMPTY, its 0 hp and its 0 wheels."
+        self.assertEqual(str(self.car0), str_car)
+
+    def test_repr(self) -> None:
+        repr_car = "Car(max_speed=0, horsepower=0, motor=Motor EMPTY, color=#ffffff)"
+        self.assertEqual(repr(self.car0), repr_car)
+
     def test_equals(self) -> None:
         self.assertEqual(self.car1, self.car2)
         self.assertNotEqual(self.car1, self.car3)
@@ -97,6 +106,7 @@ class TestCar(unittest.TestCase):
             car,
             Car(max_speed=10, horsepower=20, wheels=[Wheel(size=5, has_rim=False)] * 6),
         )
+        self.assertNotEqual(car, "this_string_isnot_a_car")
 
     def test_improve(self) -> None:
         car: Car = Car(max_speed=40, horsepower=400)
@@ -169,7 +179,3 @@ class TestCar(unittest.TestCase):
         self.assertNotEqual(hash(self.car1), hash(self.car4))
         self.assertNotEqual(hash(self.car2), hash(self.car3))
         self.assertNotEqual(hash(self.car4), hash(self.car3))
-
-
-if __name__ == "__main__":
-    unittest.main()

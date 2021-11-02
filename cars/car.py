@@ -83,7 +83,7 @@ class Car:
     def __str__(self) -> str:
         return (
             f"This car at a maximum speed of {self.max_speed} km/h "
-            f"using its {self.motor}, its {self.horsepower} hp"
+            f"using its {self.motor}, its {self.horsepower} hp "
             f"and its {len(self.wheels)} wheels."
         )
 
@@ -238,8 +238,6 @@ class Car:
 
     def add_wheel(self, wheel: Wheel) -> tuple[Wheel, ...]:
         """Add a new wheel to the car
-
-        This function raise an error if the wheel has already been added in another car.
 
         :param wheel: the new wheel to add to the car
         :type wheel: Wheel

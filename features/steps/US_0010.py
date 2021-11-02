@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 use_step_matcher("parse")
 
 
-@given("An existing car")
+@given("An existing car and an existing wheel")
 def step_impl(context):
     context.car = Car(max_speed=19, horsepower=200)
     context.wheel = Wheel(size=55, has_rim=True)

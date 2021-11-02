@@ -4,7 +4,7 @@ Feature: US_0005 Color a car
   So that my car becomes beautiful in my eyes
 
   Scenario Outline: Benjamin wants to be able to choose the color on his car
-    Given A Colorless Car
+    Given A Car
     When Benjamin adds a <color>
     Then the car has the requested color
 
@@ -17,7 +17,7 @@ Feature: US_0005 Color a car
       | #008080 |
 
   Scenario Outline: Benjamin adds a color that is not available
-    Given A Colorless Car
+    Given A Car
     When Benjamin adds a bad <color>
     Then a message indicates that the color is wrong
 

@@ -10,6 +10,13 @@ class TestMotor(unittest.TestCase):
         motor: Motor = Motor(horsepower=0)
         self.assertEqual(motor.type_motor, TypeMotor.EMPTY)
 
+    def test_repr(self) -> None:
+        self.assertEqual(repr(Motor(0)), "Motor(type=TypeMotor.EMPTY)")
+        self.assertEqual(repr(Motor(1)), "Motor(type=TypeMotor.CITY)")
+        self.assertEqual(repr(Motor(101)), "Motor(type=TypeMotor.SPORT)")
+        self.assertEqual(repr(Motor(201)), "Motor(type=TypeMotor.RACING)")
+        self.assertEqual(repr(Motor(301)), "Motor(type=TypeMotor.F1)")
+
     def test_compute(self) -> None:
         self.assertEqual(Motor.compute_type(horsepower=0), TypeMotor.EMPTY)
         self.assertEqual(Motor.compute_type(horsepower=50), TypeMotor.CITY)
@@ -50,30 +57,27 @@ class TestMotor(unittest.TestCase):
         motor = Motor(horsepower=150)
         self.assertEqual(motor, Motor(150))
         self.assertNotEqual(motor, Motor(900))
+        self.assertNotEqual(motor, "this_string_isnot_a_motor")
 
     def test_lt(self) -> None:
-        types: list[TypeMotor] = list(TypeMotor)
-        last: TypeMotor = types.pop(0)
-        t: TypeMotor
-        for t in types:
-            self.assertLess(last, t)
-            last = t
+        motor: Motor = Motor(horsepower=0)
+        self.assertLess(motor, Motor(50))
+        self.assertLess(motor, Motor(150))
+        self.assertGreater(Motor(250), motor)
+        self.assertEqual(motor, Motor(0))
+        self.assertRaises(TypeError, lambda: motor < 1)  # type: ignore
 
     def test_iter(self) -> None:
         types: list[TypeMotor] = list(TypeMotor)
         for i, t in enumerate(types):
             self.assertEqual(types[i], t)
+            self.assertEqual(iter(t), t)
 
-    def test_next(self) -> None:
-        self.assertEqual(next(TypeMotor.EMPTY), TypeMotor.CITY)
-        self.assertEqual(next(TypeMotor.CITY), TypeMotor.SPORT)
-        self.assertEqual(next(TypeMotor.SPORT), TypeMotor.RACING)
-        self.assertEqual(next(TypeMotor.RACING), TypeMotor.F1)
-        self.assertEqual(next(TypeMotor.F1), TypeMotor.F1)
-
-    def test_minmax(self) -> None:
-        self.assertEqual(min(TypeMotor), TypeMotor.EMPTY)
-        self.assertEqual(max(TypeMotor), TypeMotor.F1)
+    def test_hash(self) -> None:
+        self.assertEqual(hash(Motor(0)), hash(Motor(0)))
+        self.assertEqual(hash(Motor(100)), hash(Motor(100)))
+        self.assertEqual(hash(Motor(100)), hash(Motor(101)))
+        self.assertNotEqual(hash(Motor(100)), hash(Motor(200)))
 
 
 class TestTypeMotor(unittest.TestCase):
@@ -98,20 +102,23 @@ class TestTypeMotor(unittest.TestCase):
         self.assertEqual(TypeMotor.get_all()["SPORT"], 100)
         self.assertEqual(TypeMotor.get_all()["RACING"], 200)
         self.assertEqual(TypeMotor.get_all()["F1"], 300)
+        self.assertNotEqual(TypeMotor.EMPTY, "this_string_isnot_a_typemotor")
 
-    def test_hash(self) -> None:
-        self.assertEqual(hash(Motor(0)), hash(Motor(0)))
-        self.assertEqual(hash(Motor(100)), hash(Motor(100)))
-        self.assertEqual(hash(Motor(100)), hash(Motor(101)))
-        self.assertNotEqual(hash(Motor(100)), hash(Motor(200)))
+    def test_next(self) -> None:
+        self.assertEqual(next(TypeMotor.EMPTY), TypeMotor.CITY)
+        self.assertEqual(next(TypeMotor.CITY), TypeMotor.SPORT)
+        self.assertEqual(next(TypeMotor.SPORT), TypeMotor.RACING)
+        self.assertEqual(next(TypeMotor.RACING), TypeMotor.F1)
+        self.assertEqual(next(TypeMotor.F1), TypeMotor.F1)
+
+    def test_minmax(self) -> None:
+        self.assertEqual(min(TypeMotor), TypeMotor.EMPTY)
+        self.assertEqual(max(TypeMotor), TypeMotor.F1)
 
     def test_lt(self) -> None:
-        motor: Motor = Motor(horsepower=0)
-        self.assertLess(motor, Motor(50))
-        self.assertLess(motor, Motor(150))
-        self.assertGreater(Motor(250), motor)
-        self.assertEqual(motor, Motor(0))
-
-
-if __name__ == "__main__":
-    unittest.main()
+        types: list[TypeMotor] = list(TypeMotor)
+        last: TypeMotor = types.pop(0)
+        t: TypeMotor
+        for t in types:
+            self.assertLess(last, t)
+            last = t

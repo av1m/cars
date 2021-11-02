@@ -33,6 +33,8 @@ test: ## Test all the project
 	$(BIN)/coverage run -m unittest discover --verbose -s tests -p "*.py"
 	# Functional test
 	$(BIN)/behave --verbose features/
+	# Show the coverage
+	$(BIN)/coverage report -m
 
 .PHONY: install
 install: venv requirements ## This command must be launched for the first use of the project

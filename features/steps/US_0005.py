@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 use_step_matcher("parse")
 
 
-@given("A Colorless Car")
+@given("A Car")
 def step_impl(context):
     """
     :type context: behave.runner.Context

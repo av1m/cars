@@ -33,6 +33,23 @@ class TestWheel(TestCase):
         self.assertNotEqual(wheel1, wheel2)
         self.assertNotEqual(wheel1, wheel3)
         self.assertNotEqual(wheel2, wheel3)
+        self.assertNotEqual(wheel2, "this_string_isnot_a_wheel")
+
+    def test_repr(self):
+        self.assertEqual(repr(Wheel()), "Wheel(size=1, has_rim=False)")
+        self.assertEqual(repr(Wheel(size=20)), "Wheel(size=20, has_rim=False)")
+        self.assertEqual(repr(Wheel(size=1000)), "Wheel(size=1000, has_rim=False)")
+        self.assertEqual(
+            repr(Wheel(size=1000, has_rim=True)), "Wheel(size=1000, has_rim=True)"
+        )
+        self.assertEqual(repr(Wheel(15, True)), "Wheel(size=15, has_rim=True)")
+
+    def test_str(self):
+        self.assertEqual(str(Wheel()), "Wheel of 1 without rim")
+        self.assertEqual(str(Wheel(size=20)), "Wheel of 20 without rim")
+        self.assertEqual(str(Wheel(size=1000)), "Wheel of 1000 without rim")
+        self.assertEqual(str(Wheel(size=1000, has_rim=True)), "Wheel of 1000 with rim")
+        self.assertEqual(str(Wheel(15, True)), "Wheel of 15 with rim")
 
     def test_raise(self):
         self.assertRaises(AssertionError, lambda: Wheel(size=0))

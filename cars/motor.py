@@ -61,12 +61,6 @@ class TypeMotor(Enum):
         :return: True if the current value is lower than the other value
         :rtype: bool
         """
-        if not isinstance(other, TypeMotor):
-            logger.warning(
-                "%s isn't type 'TypeMotor'. So, will use default __lt__",
-                type(other).__name__,
-            )
-            return super().__lt__(other)
         return self.value < other.value
 
     @staticmethod
