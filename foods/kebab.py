@@ -1,7 +1,6 @@
 # coding: utf-8
 
 import logging
-from foods.formula import Formula
 
 logger = logging.getLogger(__name__)
 
