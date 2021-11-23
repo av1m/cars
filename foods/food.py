@@ -6,10 +6,14 @@ Representation of a Food
 from __future__ import annotations
 
 import abc
+import copy
+import logging
 from typing import Sequence, Type, final
 
 import foods
 from cars import Car
+
+logger = logging.getLogger(__name__)
 
 
 class Food:
@@ -69,8 +73,13 @@ class TruckFood(Car):
         :param kwargs: the keyword arguments
         :type kwargs: dict
         """
+        class Memento:
+            state = None
+        self.memento = Memento()
         self._formulas: dict[int, foods.Formula] = {i: f for i, f in enumerate(formulas, 1)}
         self._orders: list[int] = []
+
+        self.set_state()
         super().__init__(*args, **kwargs)
 
     def __init_subclass__(cls, *args, **kwargs) -> None:
@@ -139,6 +148,22 @@ class TruckFood(Car):
         # Pop the last item of orders and return it
         formula_number = self._orders.pop()
         return formula_number, self.formulas.get(formula_number)
+
+    def _create_state(self):
+        return {"orders": copy.deepcopy(self._orders), "formulas": copy.deepcopy(self._formulas)}
+
+    def set_state(self) -> None:
+        self.memento.state = self._create_state()
+
+    def reset_state(self) -> None:
+        state = self.memento.state
+        # Check the state
+        if state is None:
+            self.memento.state = None
+            logger.info("Can't rollback, no state to rollback")
+        else:
+            self._orders = state.get("orders")
+            self._formulas = state.get("formulas")
 
     @staticmethod
     def from_food(food: Type[Food]) -> Type[TruckFood]:
