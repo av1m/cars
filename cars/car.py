@@ -82,9 +82,9 @@ class Car:
 
     def __str__(self) -> str:
         return (
-            f"This car at a maximum speed of {self.max_speed} km/h "
+            f"This {self.__class__.__name__} at a maximum speed of {self.max_speed} km/h "
             f"using its {self.motor}, its {self.horsepower} hp "
-            f"and its {len(self.wheels)} wheels."
+            f"and its {len(self.wheels)} wheels"
         )
 
     def __lt__(self, other: Car) -> bool:

@@ -3,9 +3,7 @@
 import copy
 import unittest
 
-from cars.car import Car
-from cars.motor import Motor, TypeMotor
-from cars.wheel import Wheel
+from cars import Car, Motor, TypeMotor, Wheel
 
 
 class TestCar(unittest.TestCase):

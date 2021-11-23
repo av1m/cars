@@ -2,35 +2,38 @@
 
 import logging
 
-from foods.kebab import Kebab
+from foods import Food
 
 logger = logging.getLogger(__name__)
 
 
 class Formula:
-    def __init__(self, drink: str, kebabs: list[Kebab]):
+    """Formula class
+    """
+
+    def __init__(self, drink: str, foods: list[Food]):
         self.drink = drink
-        self.kebabs = kebabs
+        self.foods = foods
 
     @property
     def price(self) -> int:
-        """Formula price is sum of all kebabs prices
+        """Formula price is sum of all foods prices
 
         :return: Formula price
         :rtype: int
         """
-        return sum([kebab.price for kebab in self.kebabs])
+        return sum([food.price for food in self.foods])
 
-    def add_kebab(self, kebab: Kebab) -> list[Kebab]:
-        """Add kebab to formula
+    def add_food(self, food: Food) -> list[Food]:
+        """Add food to formula
 
-        :param kebab: Kebab to add
-        :type kebab: Kebab
-        :return: list of kebabs
-        :rtype: list[Kebab]
+        :param food: Food to add
+        :type food: Food
+        :return: list of foods
+        :rtype: list[Food]
         """
-        self.kebabs.append(kebab)
-        return self.kebabs
+        self.foods.append(food)
+        return self.foods
 
     def __eq__(self, o: object) -> bool:
         if not isinstance(o, Formula):
@@ -38,6 +41,10 @@ class Formula:
                 "%s isn't type 'Formula'. So, will use default __eq__", type(o).__name__
             )
             return super().__eq__(o)
-        return (
-            self.drink == o.drink and self.kebabs == o.kebabs and self.price == o.price
-        )
+        return self.drink == o.drink and self.foods == o.foods and self.price == o.price
+
+    def __str__(self) -> str:
+        return f"For {self.price}$, you can drink {self.drink} and eats : {self.foods}"
+
+    def __repr__(self) -> str:
+        return f"Formula('{self.drink}', {self.foods})"
