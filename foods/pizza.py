@@ -12,12 +12,12 @@ logger = logging.getLogger(__name__)
 
 
 class Pizza(foods.Kebab):
-    """Representation of a Pizza food
-    """
+    """Representation of a Pizza food"""
+
     pass
 
 
 class TruckPizza(foods.TruckFood):
-    """Representation of a TruckPizza
-    """
+    """Representation of a TruckPizza"""
+
     food = Pizza

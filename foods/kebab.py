@@ -12,8 +12,8 @@ logger = logging.getLogger(__name__)
 
 
 class Kebab(foods.Food):
-    """Representation of a Kebab
-    """
+    """Representation of a Kebab"""
+
     def __init__(self, sauce: str, price: int):
         self.sauce: str = sauce
         self.price: int = price

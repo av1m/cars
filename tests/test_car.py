@@ -83,7 +83,7 @@ class TestCar(unittest.TestCase):
         self.assertEqual(car.motor, Motor(20))
 
     def test_str(self) -> None:
-        str_car = "This car at a maximum speed of 0 km/h using its Motor EMPTY, its 0 hp and its 0 wheels."
+        str_car = "This Car at a maximum speed of 0 km/h using its Motor EMPTY, its 0 hp and its 0 wheels"
         self.assertEqual(str(self.car0), str_car)
 
     def test_repr(self) -> None:

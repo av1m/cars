@@ -69,7 +69,9 @@ class TruckFood(Car):
         :param kwargs: the keyword arguments
         :type kwargs: dict
         """
-        self._formulas: dict[int, foods.Formula] = {i: f for i, f in enumerate(formulas, 1)}
+        self._formulas: dict[int, foods.Formula] = {
+            i: f for i, f in enumerate(formulas, 1)
+        }
         self._orders: list[int] = []
         super().__init__(*args, **kwargs)
 
@@ -125,7 +127,9 @@ class TruckFood(Car):
         :rtype: foods.Formula
         """
         if formula not in self.formulas:
-            raise ValueError(f"The formula {formula} does not exist, please check orders property")
+            raise ValueError(
+                f"The formula {formula} does not exist, please check orders property"
+            )
         self._orders.append(formula)
         return self.formulas.get(formula)
 

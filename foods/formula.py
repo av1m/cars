@@ -8,8 +8,7 @@ logger = logging.getLogger(__name__)
 
 
 class Formula:
-    """Formula class
-    """
+    """Formula class"""
 
     def __init__(self, drink: str, foods: list[Food]):
         self.drink = drink
