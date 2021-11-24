@@ -2,7 +2,8 @@
 
 import unittest
 
-from foods import TruckPizza, Pizza, Formula
+from foods.formula import Formula
+from foods.pizza import Pizza, TruckPizza
 
 
 class TestMemento(unittest.TestCase):
@@ -21,7 +22,8 @@ class TestMemento(unittest.TestCase):
         pizza = TruckPizza(formulas=TestMemento.formulas)
         pizza.set_state()
         self.assertEqual(pizza.formulas, pizza.memento.state.get("formulas"))
-        self.assertEqual(pizza.orders, pizza.memento.state.get("orders"))
+        self.assertEqual(pizza.orders, ())
+        self.assertEqual(pizza.memento.state.get("orders"), [])
         self.assertEqual(len(pizza.orders), 0)
         pizza.add_order(1)
         self.assertEqual(pizza.formulas, pizza.memento.state.get("formulas"))
@@ -37,5 +39,5 @@ class TestMemento(unittest.TestCase):
         # Restore state
         pizza.reset_state()
         self.assertEqual(len(pizza.orders), 2)
-        self.assertIsNone(pizza.reset_state())
+        pizza.reset_state()
         self.assertEqual(len(pizza.orders), 2)

@@ -3,7 +3,9 @@
 import copy
 import unittest
 
-from cars import Car, Motor, TypeMotor, Wheel
+from cars.car import Car
+from cars.motor import Motor, TypeMotor
+from cars.wheel import Wheel
 
 
 class TestCar(unittest.TestCase):
@@ -83,7 +85,7 @@ class TestCar(unittest.TestCase):
         self.assertEqual(car.motor, Motor(20))
 
     def test_str(self) -> None:
-        str_car = "This car at a maximum speed of 0 km/h using its Motor EMPTY, its 0 hp and its 0 wheels."
+        str_car = "This Car at a maximum speed of 0 km/h using its Motor EMPTY, its 0 hp and its 0 wheels"
         self.assertEqual(str(self.car0), str_car)
 
     def test_repr(self) -> None:
@@ -102,7 +104,11 @@ class TestCar(unittest.TestCase):
         )
         self.assertEqual(
             car,
-            Car(max_speed=10, horsepower=20, wheels=[Wheel(size=5, has_rim=False)] * 6),
+            Car(
+                max_speed=10,
+                horsepower=20,
+                wheels=[Wheel(size=5, has_rim=False)] * 6,
+            ),
         )
         self.assertNotEqual(car, "this_string_isnot_a_car")
 

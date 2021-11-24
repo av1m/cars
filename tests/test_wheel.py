@@ -1,6 +1,7 @@
 from unittest import TestCase
 
-from cars import Car, Wheel
+from cars.car import Car
+from cars.wheel import Wheel
 
 
 class TestWheel(TestCase):

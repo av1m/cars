@@ -2,7 +2,7 @@
 
 import unittest
 
-from cars import Motor, TypeMotor
+from cars.motor import Motor, TypeMotor
 
 
 class TestMotor(unittest.TestCase):
