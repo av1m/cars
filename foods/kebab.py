@@ -42,6 +42,11 @@ class Kebab(Food):
 
     @property
     def price(self) -> int:
+        """Getter for price
+
+        :return: The price
+        :rtype: int
+        """
         return self._price
 
     @price.setter
@@ -57,4 +62,9 @@ class Kebab(Food):
 
 
 class TruckKebab(TruckFood):
+    """Representation of a TruckKebab
+
+    TruckKebab is a TruckFood with a specific Food
+    """
+
     food = Kebab
