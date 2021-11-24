@@ -6,6 +6,7 @@ Representation of a Pizza
 
 import logging
 
+import cars
 import foods
 
 logger = logging.getLogger(__name__)
@@ -17,7 +18,7 @@ class Pizza(foods.Kebab):
     pass
 
 
-class TruckPizza(foods.TruckFood):
+class TruckPizza(cars.TruckFood):
     """Representation of a TruckPizza"""
 
     food = Pizza

@@ -6,6 +6,7 @@ Representation of a Kebab
 
 import logging
 
+import cars
 import foods
 
 logger = logging.getLogger(__name__)
@@ -17,6 +18,27 @@ class Kebab(foods.Food):
     def __init__(self, sauce: str, price: int):
         self.sauce: str = sauce
         self.price: int = price
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}(sauce='{self.sauce}', price={self.price})"
+
+    def __str__(self) -> str:
+        return (
+            f"{self.__class__.__name__} with sauce {self.sauce} and price {self.price}"
+        )
+
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, type(self)):
+            logger.warning(
+                "%s isn't type '%s'. So, will use default __eq__",
+                type(o).__name__,
+                self.__class__.__name__,
+            )
+            return super().__eq__(o)
+        return self.sauce == o.sauce and self.price == o.price
+
+    def __hash__(self):
+        return hash((self.sauce, self.price))
 
     @property
     def price(self) -> int:
@@ -33,24 +55,6 @@ class Kebab(foods.Food):
             raise ValueError("Price can't be negative")
         self._price = price
 
-    def __eq__(self, o: object) -> bool:
-        if not isinstance(o, type(self)):
-            logger.warning(
-                "%s isn't type '%s'. So, will use default __eq__",
-                type(o).__name__,
-                self.__class__.__name__,
-            )
-            return super().__eq__(o)
-        return self.sauce == o.sauce and self.price == o.price
 
-    def __repr__(self) -> str:
-        return f"{self.__class__.__name__}(sauce='{self.sauce}', price={self.price})"
-
-    def __str__(self) -> str:
-        return (
-            f"{self.__class__.__name__} with sauce {self.sauce} and price {self.price}"
-        )
-
-
-class TruckKebab(foods.TruckFood):
+class TruckKebab(cars.TruckFood):
     food = Kebab
