@@ -18,30 +18,19 @@ def step_impl(context):
     context.car = Car()
 
 
-@when("Benjamin wants to create a car with a max speed {max_speed}")
-def step_impl(context, max_speed):
+@when(
+    "Benjamin wants to create a car with a max speed {max_speed} "
+    "and a number of horsepower {horsepower} and 10 size {number_of_wheels} wheels"
+)
+def step_impl(context, max_speed, horsepower, number_of_wheels):
     """
     :type context: behave.runner.Context
     :type max_speed: str
-    """
-    context.car.max_speed = int(max_speed)
-
-
-@step("a number of horsepower {horsepower}")
-def step_impl(context, horsepower):
-    """
-    :type context: behave.runner.Context
     :type horsepower: str
-    """
-    context.car.horsepower = int(horsepower)
-
-
-@step("10 size {number_of_wheels} wheels")
-def step_impl(context, number_of_wheels):
-    """
-    :type context: behave.runner.Context
     :type number_of_wheels: str
     """
+    context.car.max_speed = int(max_speed)
+    context.car.horsepower = int(horsepower)
     for _ in range(int(number_of_wheels)):
         context.car.add_wheel(Wheel(size=10))
 

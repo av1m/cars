@@ -16,9 +16,8 @@ Feature: US_0007 Weight of car
 
 
   Scenario Outline: Benjamin want to create a car with a wrong weight
-    Given Nothing
-    When Benjamin create a car with a <weight>
-    And Benjamin change the <weight> to his car
+    Given Benjamin create a car with a <weight>
+    When Benjamin change the <weight> to his car
     Then The system indicates an error
 
     Examples:

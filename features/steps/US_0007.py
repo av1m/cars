@@ -17,29 +17,7 @@ def step_impl(context):
     context.car = Car(weight=1000)
 
 
-@when("Benjamin change the {weight} to his car")
-def step_impl(context, weight):
-    """
-    :type context: behave.runner.Context
-    :type weight: str
-    """
-    try:
-        context.car.weight = int(weight)
-    except (AssertionError, ValueError):
-        context.exception = True
-        logger.info("Cannot create the car with weight = %s", weight)
-
-
-@then("the {weight} of the car is increased")
-def step_impl(context, weight):
-    """
-    :type context: behave.runner.Context
-    :type weight: str
-    """
-    assert context.car.weight == int(weight)
-
-
-@when("Benjamin create a car with a {weight}")
+@given("Benjamin create a car with a {weight}")
 def step_impl(context, weight):
     """
     :type context: behave.runner.Context
@@ -54,3 +32,25 @@ def step_impl(context, weight):
             getattr(e, "message", repr(e)),
         )
         context.exception = True
+
+
+@when("Benjamin change the {weight} to his car")
+def step_impl(context, weight):
+    """
+    :type context: behave.runner.Context
+    :type weight: str
+    """
+    try:
+        context.car.weight = int(weight)
+    except (AssertionError, ValueError, AttributeError):
+        context.exception = True
+        logger.info("Cannot create the car with weight = %s", weight)
+
+
+@then("the {weight} of the car is increased")
+def step_impl(context, weight):
+    """
+    :type context: behave.runner.Context
+    :type weight: str
+    """
+    assert context.car.weight == int(weight)
