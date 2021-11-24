@@ -1,6 +1,10 @@
+import logging
+
 from behave import *
 
 from cars.car import Car
+
+logger = logging.getLogger(__name__)
 
 use_step_matcher("parse")
 
@@ -29,4 +33,4 @@ def step_impl(context):
     :type context: behave.runner.Context
     """
     if hasattr(context, "info"):
-        pass
+        logger.info(context.info)

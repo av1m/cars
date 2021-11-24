@@ -25,7 +25,6 @@ def step_impl(context, max_speed):
     :type max_speed: str
     """
     context.car.max_speed = int(max_speed)
-    assert int(max_speed) == int(max_speed)
 
 
 @step("a number of horsepower {horsepower}")
@@ -35,7 +34,6 @@ def step_impl(context, horsepower):
     :type horsepower: str
     """
     context.car.horsepower = int(horsepower)
-    assert context.car.horsepower == int(horsepower)
 
 
 @step("10 size {number_of_wheels} wheels")
@@ -46,7 +44,6 @@ def step_impl(context, number_of_wheels):
     """
     for _ in range(int(number_of_wheels)):
         context.car.add_wheel(Wheel(size=10))
-    assert len(context.car.wheels) == int(number_of_wheels)
 
 
 @then("the car is created")

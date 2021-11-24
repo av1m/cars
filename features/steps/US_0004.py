@@ -25,7 +25,6 @@ def step_impl(context, kmh):
     :type kmh: str
     """
     context.formule1.max_speed = int(kmh)
-    assert context.formule1.max_speed == int(kmh)
 
 
 @then("Thierry can use an electric formula 1 climbed to its maximum speed")

@@ -17,7 +17,6 @@ def step_impl(context):
     :type context: behave.runner.Context
     """
     context.racing_car = Car(horsepower=250)
-    assert context.racing_car.motor.type_motor == TypeMotor.RACING
 
 
 @when("he want to add {number_wheels} wheel of {wheel_size} size")
@@ -29,12 +28,13 @@ def step_impl(context, number_wheels, wheel_size):
     """
     for _ in range(int(number_wheels)):
         context.racing_car.add_wheel(Wheel(size=int(wheel_size)))
-    assert len(context.racing_car.wheels) == int(number_wheels)
 
 
-@then("the system show us the newly wheels")
-def step_impl(context):
+@then("the system show us the newly wheels (and check the {number_wheels})")
+def step_impl(context, number_wheels):
     """
+    :type number_wheels: str
     :type context: behave.runner.Context
     """
+    assert len(context.racing_car.wheels) == int(number_wheels)
     logger.info("All wheels of the racing car %", context.racing_car.wheels)

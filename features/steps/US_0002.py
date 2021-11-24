@@ -43,8 +43,6 @@ def step_impl(context, max_speed, horsepower):
     """
     try:
         context.car2 = Car(max_speed=int(max_speed), horsepower=int(horsepower))
-        assert context.car2.max_speed == int(max_speed)
-        assert context.car2.horsepower == int(horsepower)
     except (AssertionError, ValueError):
         context.error2 = True
 

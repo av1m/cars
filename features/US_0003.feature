@@ -6,7 +6,7 @@ Feature:  US_0003 Car wheel
   Scenario Outline: Benjamin wants to use his car in racing
     Given Benjamin had a racing car
     When he want to add <number_wheels> wheel of <wheel_size> size
-    Then the system show us the newly wheels
+    Then the system show us the newly wheels (and check the <number_wheels>)
 
     Examples:
       | number_wheels | wheel_size |
