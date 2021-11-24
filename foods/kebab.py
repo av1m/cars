@@ -6,13 +6,13 @@ Representation of a Kebab
 
 import logging
 
-import cars
-import foods
+from cars.truck import TruckFood
+from foods.food import Food
 
 logger = logging.getLogger(__name__)
 
 
-class Kebab(foods.Food):
+class Kebab(Food):
     """Representation of a Kebab"""
 
     def __init__(self, sauce: str, price: int):
@@ -56,5 +56,5 @@ class Kebab(foods.Food):
         self._price = price
 
 
-class TruckKebab(cars.TruckFood):
+class TruckKebab(TruckFood):
     food = Kebab

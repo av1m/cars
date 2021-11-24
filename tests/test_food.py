@@ -2,7 +2,9 @@
 
 import unittest
 
-from foods import Food, Kebab, Pizza
+from foods.food import Food
+from foods.kebab import Kebab
+from foods.pizza import Pizza
 
 
 class TestFood(unittest.TestCase):
@@ -38,6 +40,7 @@ class TestKebab(unittest.TestCase):
         self.assertNotEqual(kebab1, kebab2)
         self.assertNotEqual(kebab1, kebab3)
         self.assertNotEqual(kebab2, kebab3)
+        self.assertNotEqual(kebab2, "Hello world")
         self.assertEqual(kebab4, kebab3)
         self.assertEqual(kebab1, kebab1)
 

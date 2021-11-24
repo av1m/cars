@@ -7,9 +7,10 @@ from __future__ import annotations
 
 import abc
 import inspect
-from typing import Type
+from typing import TYPE_CHECKING, Type
 
-import cars
+if TYPE_CHECKING:
+    from cars.truck import TruckFood
 
 
 class Food(abc.ABC):
@@ -36,36 +37,39 @@ class Food(abc.ABC):
         pass
 
     @classmethod
-    def get_truck(cls) -> Type[cars.TruckFood]:
+    def get_truck(cls) -> Type[TruckFood]:
         """Return the truck food class
         This method is used to get the truck food class associated with this food.
 
         cls needs to be a subclass of Food
 
         :return: The truck food class associated with this food
-        :rtype: Type[cars.TruckFood]
+        :rtype: Type[TruckFood]
         """
         # Check if cls is an abstract class
+        from cars.truck import TruckFood
+
         if inspect.isabstract(cls):
-            raise TypeError("Can't create cars.TruckFood from abstract class")
-        return cars.TruckFood.from_food(cls)
+            raise TypeError("Can't create TruckFood from abstract class")
+        return TruckFood.from_food(cls)
 
     @classmethod
-    def create_truck(cls, *args, **kwargs) -> cars.TruckFood:
+    def create_truck(cls, *args, **kwargs) -> TruckFood:
         """Return the truck food associated with this food
-                This method is used to create the truck food associated with this food.
+        This method is used to create the truck food associated with this food.
 
-                cls needs to be a subclass of Food
+        cls needs to be a subclass of Food
 
-                This method does not ask for the iterable of formulas.
-                But formulas is required for the creation of truck food.
-                If formulas is not provided, a TypeError will raise (from __new__).
-        x
-                :return: The truck food associated with this food
-                :rtype: cars.TruckFood
+        This method does not ask for the iterable of formulas.
+        But formulas is required for the creation of truck food.
+        If formulas is not provided, a TypeError will raise (from __new__).
+
+        :return: The truck food associated with this food
+        :rtype: TruckFood
         """
+        from cars.truck import TruckFood
+
         if inspect.isabstract(cls):
-            raise TypeError("Can't create cars.TruckFood from abstract class")
-        x = cars.TruckFood.from_food(cls)
-        print(x)
+            raise TypeError("Can't create TruckFood from abstract class")
+        x = TruckFood.from_food(cls)
         return x(*args, **kwargs)

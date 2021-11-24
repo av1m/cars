@@ -3,15 +3,17 @@
 from __future__ import annotations
 
 import abc
+import inspect
 from typing import Iterable, Optional, Sequence, Type, final
 
-import cars
-import foods
+from cars.car import Car
+from foods.food import Food
+from foods.formula import Formula
 
 
-class TruckFood(cars.Car, metaclass=abc.ABCMeta):
+class TruckFood(Car, metaclass=abc.ABCMeta):
     """Class that represent a car food
-    This class is an abstract class
+    This class is an abstract base class
     This class is a subclass of Car
 
     A TruckFood has
@@ -21,21 +23,19 @@ class TruckFood(cars.Car, metaclass=abc.ABCMeta):
     So a customer buys a formula.
     """
 
-    food: Type[foods.Food]
+    food: Type[Food]
 
-    def __init__(self, formulas: Iterable[foods.Formula], *args, **kwargs) -> None:
+    def __init__(self, formulas: Iterable[Formula], *args, **kwargs) -> None:
         """Initialize the instance of the class
 
         :param formulas: the formulas
-        :type formulas: Iterable[foods.Formula]
+        :type formulas: Iterable[Formula]
         :param args: the arguments
         :type args: Iterable
         :param kwargs: the keyword arguments
         :type kwargs: dict
         """
-        self._formulas: dict[int, foods.Formula] = {
-            i: f for i, f in enumerate(formulas, 1)
-        }
+        self._formulas: dict[int, Formula] = {i: f for i, f in enumerate(formulas, 1)}
         self._orders: list[int] = []
         super().__init__(*args, **kwargs)
 
@@ -48,11 +48,12 @@ class TruckFood(cars.Car, metaclass=abc.ABCMeta):
         :param kwargs: the keyword arguments
         :type kwargs: dict
         """
-        if not issubclass(cls.food, foods.Food):
-            raise TypeError(
+        if not (inspect.isclass(cls.food) and issubclass(cls.food, Food)):
+            raise AttributeError(
                 "The class must have a food attribute that is a subclass of Food"
             )
-        super().__init_subclass__(*args, **kwargs)
+        # https://github.com/python/mypy/issues/4660
+        super().__init_subclass__(*args, **kwargs)  # type: ignore
 
     def __str__(self) -> str:
         return super().__str__() + f" and can sell {self.food.__name__}"
@@ -62,12 +63,12 @@ class TruckFood(cars.Car, metaclass=abc.ABCMeta):
 
     @property
     @final
-    def formulas(self) -> dict[int, foods.Formula]:
+    def formulas(self) -> dict[int, Formula]:
         """Return the formulas of the truck
         This property is final
 
         :return: the formulas
-        :rtype: dict[int, foods.Formula]
+        :rtype: dict[int, Formula]
         """
         return self._formulas
 
@@ -82,13 +83,13 @@ class TruckFood(cars.Car, metaclass=abc.ABCMeta):
         return tuple(self._orders)
 
     @final
-    def add_order(self, formula: int) -> Optional[foods.Formula]:
+    def add_order(self, formula: int) -> Optional[Formula]:
         """Add an order to the truck
 
         :param formula: the number of the formula
         :type formula: int
         :return: the formula
-        :rtype: foods.Formula
+        :rtype: Formula
         """
         if formula not in self.formulas:
             raise ValueError(
@@ -98,11 +99,11 @@ class TruckFood(cars.Car, metaclass=abc.ABCMeta):
         return self.formulas.get(formula)
 
     @final
-    def undo_last_order(self) -> Optional[tuple[int, foods.Formula]]:
+    def undo_last_order(self) -> Optional[tuple[int, Formula]]:
         """Undo the last order
 
         :return: the number of the formula and the formula
-        :rtype: tuple[int, foods.Formula]
+        :rtype: tuple[int, Formula]
         """
         # Pop the last item of orders and return it
         formula_number = self._orders.pop()
@@ -110,7 +111,7 @@ class TruckFood(cars.Car, metaclass=abc.ABCMeta):
         return (formula_number, formula) if formula else None
 
     @staticmethod
-    def from_food(food: Type[foods.Food]) -> Type[TruckFood]:
+    def from_food(food: Type[Food]) -> Type[TruckFood]:
         """Return the TruckFood subclass associated to the food
 
         :param food: the food

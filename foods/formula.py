@@ -3,7 +3,7 @@
 import logging
 from typing import Sequence
 
-import foods
+from foods.food import Food
 
 logger = logging.getLogger(__name__)
 
@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 class Formula:
     """Formula class"""
 
-    def __init__(self, drink: str, foods: Sequence[foods.Food] = None) -> None:
+    def __init__(self, drink: str, foods: Sequence[Food] = None) -> None:
         self.drink = drink
         self.foods = set(foods) if foods else set()
 
@@ -43,13 +43,13 @@ class Formula:
         """
         return sum(food.price for food in self.foods)
 
-    def add_food(self, food: foods.Food) -> Sequence[foods.Food]:
+    def add_food(self, food: Food) -> Sequence[Food]:
         """Add food to formula
 
         :param food: Food to add
-        :type food: foods.Food
+        :type food: Food
         :return: tuple of foods
-        :rtype: Sequence[foods.Food]
+        :rtype: Sequence[Food]
         """
         self.foods.add(food)
         return tuple(self.foods)

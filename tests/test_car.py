@@ -3,7 +3,9 @@
 import copy
 import unittest
 
-from cars import Car, Motor, TypeMotor, Wheel
+from cars.car import Car
+from cars.motor import Motor, TypeMotor
+from cars.wheel import Wheel
 
 
 class TestCar(unittest.TestCase):
@@ -102,7 +104,11 @@ class TestCar(unittest.TestCase):
         )
         self.assertEqual(
             car,
-            Car(max_speed=10, horsepower=20, wheels=[Wheel(size=5, has_rim=False)] * 6),
+            Car(
+                max_speed=10,
+                horsepower=20,
+                wheels=[Wheel(size=5, has_rim=False)] * 6,
+            ),
         )
         self.assertNotEqual(car, "this_string_isnot_a_car")
 
