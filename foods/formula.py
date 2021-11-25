@@ -12,7 +12,7 @@ class Formula:
     """Formula class"""
 
     def __init__(self, drink: str, foods: Sequence[Food] = None) -> None:
-        self.drink = drink
+        self.drink: str = drink
         self.foods = set(foods) if foods else set()
 
     def __str__(self) -> str:

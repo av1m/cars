@@ -106,9 +106,16 @@ class TruckFood(Car, metaclass=abc.ABCMeta):
         :rtype: tuple[int, Formula]
         """
         # Pop the last item of orders and return it
-        formula_number = self._orders.pop()
-        formula = self.formulas.get(formula_number)
-        return (formula_number, formula) if formula else None
+        try:
+            formula_number = self._orders.pop()
+            formula = self.formulas.get(formula_number)
+            if not formula:
+                raise ValueError(
+                    "An order was placed but it was not linked to a formula"
+                )
+            return formula_number, formula
+        except IndexError:
+            raise IndexError("There is no order to undo")
 
     @staticmethod
     def from_food(food: Type[Food]) -> Type[TruckFood]:

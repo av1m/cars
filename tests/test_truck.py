@@ -80,6 +80,7 @@ class TestTruck(unittest.TestCase):
 
     def test_undo(self) -> None:
         truck_kebab = TruckKebab(self.formulas)
+        self.assertRaises(IndexError, lambda: truck_kebab.undo_last_order())
         truck_kebab.add_order(1)
         truck_kebab.add_order(2)
         self.assertEqual(truck_kebab.orders, (1, 2))
