@@ -93,7 +93,7 @@ class TruckFood(Car, metaclass=abc.ABCMeta):
         """
         if formula not in self.formulas:
             raise ValueError(
-                f"The formula {formula} does not exist, please check orders property"
+                f"The formula {formula} does not exist, please check formulas property"
             )
         self._orders.append(formula)
         return self.formulas.get(formula)

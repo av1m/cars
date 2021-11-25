@@ -71,5 +71,4 @@ class Food(abc.ABC):
 
         if inspect.isabstract(cls):
             raise TypeError("Can't create TruckFood from abstract class")
-        x = TruckFood.from_food(cls)
-        return x(*args, **kwargs)
+        return TruckFood.from_food(cls)(*args, **kwargs)

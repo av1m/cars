@@ -28,7 +28,7 @@ test: ## Test all the project
 	# Format
 	$(BIN)/black --verbose --check .
 	# Type check
-	$(BIN)/mypy --verbose --pretty --package cars --package tests
+	$(BIN)/mypy --verbose --pretty --package cars --package foods --package tests
 	# Unit test
 	$(BIN)/coverage run -m unittest discover --verbose -s tests -p "*.py"
 	# Functional test

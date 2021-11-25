@@ -1,4 +1,4 @@
-Feature: US_0012 Undo an order
+Feature: US_0013 Favorite formula
   As a food lover
   I want to create a formula with my best food
   In order to have a list with all my favorite food
